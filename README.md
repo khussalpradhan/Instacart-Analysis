@@ -33,7 +33,7 @@ From our initial Exploratory Data Analysis (`project_initiation.ipynb`), we have
 
 ## Repository Structure
 ```bash
-├── project_initiation.ipynb   # Part (A-E): Dataset Selection, EDA, and Hypothesis Formulation
+├── project_initiation_FINAL.ipynb   # Part (A-E): Dataset Selection, EDA, and Hypothesis Formulation
 ├── kaggleInstacart/           # (Excluded) Raw data files
 └── README.md                  # Project documentation
 ```
@@ -53,7 +53,7 @@ From our initial Exploratory Data Analysis (`project_initiation.ipynb`), we have
     *   Extract files into a `kaggleInstacart/` folder in the root directory.
 4.  **Run the Notebook**:
     ```bash
-    jupyter notebook project_initiation.ipynb
+    jupyter notebook project_initiation_FINAL.ipynb
     ```
 
 ## Contact
