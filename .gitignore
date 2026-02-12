@@ -1,0 +1,10 @@
+# Data
+kaggleInstacart/
+*.csv
+*.zip
+*.gz
+
+# System
+.DS_Store
+.ipynb_checkpoints/
+__pycache__/
