@@ -16,26 +16,22 @@ This project analyzes the [Instacart Market Basket Analysis (2017)](https://www.
     *   **Strong Seasonality**: Distinct weekly purchase cycles (peaks at 7, 14, 21 days).
     *   **Extreme Class Imbalance**: "Bananas" dominate, while the long tail of products is vast.
 
-## Key Insights (so far)
-From our initial Exploratory Data Analysis (`project_initiation.ipynb`), we have formulated three core hypotheses:
+## Research Questions (Checkpoint 2)
+Building upon our initial EDA, we have formulated three core research questions combining Course and External data mining techniques:
 
-1.  **The Sparsity-Support Trade-off**:
-    *   *Observation*: >90% of items appear in <1% of baskets.
-    *   *Hypothesis*: Standard support thresholds (>0.01) will miss meaningful patterns in niche categories. We need **category-specific thresholds**.
-
-2.  **Temporal Structure vs. Static Association**:
-    *   *Observation*: Strong peaks in `days_since_prior_order` at 7-day intervals.
-    *   *Hypothesis*: **Sequential Patterns** (Item A $\rightarrow$ Item B next week) may reveal structure missed by static Frequent Itemsets.
-
-3.  **Predictability of Reorders**:
-    *   *Observation*: Top 1% of products account for >20% of volume (Pareto Principle).
-    *   *Hypothesis*: Global baselines are accurate but useless. Predictive models must rely on **User-Specific History** to be effective.
+1.  **RQ1 (Course - FP-Growth):** What frequent itemsets and association rules emerge under varying support thresholds, and how do confidence and lift compare when evaluating these rules?
+    *   *Feasibility:* EDA proves a highly sparse long-tail distribution, requiring mathematical justification for extremely low support thresholds (e.g., 0.001 - 0.01).
+2.  **RQ2 (Course - Segmented FP-Growth):** How do frequent purchasing patterns differ between distinct user segments?
+    *   *Feasibility:* EDA segmentation reveals massive shopping volume variances between Weekend (Days 0, 1) and Midweek shoppers, allowing for comparative rule mining.
+3.  **RQ3 (External - PrefixSpan):** Do sequential purchase patterns (e.g., buying Product A, followed by Product B in a subsequent order) reveal item dependency structures missed by unordered itemsets?
+    *   *Feasibility:* EDA of user order histories proves the median sequence length is ~15 orders, which is computationally feasible for PrefixSpan without aggressive truncation.
 
 ## Repository Structure
 ```bash
-├── project_initiation_FINAL.ipynb   # Part (A-E): Dataset Selection, EDA, and Hypothesis Formulation
-├── kaggleInstacart/           # (Excluded) Raw data files
-└── README.md                  # Project documentation
+├── project_checkpoint_2.ipynb       # Checkpoint 2: Research Questions & Methodological Feasibility EDA
+├── project_initiation_FINAL.ipynb   # Checkpoint 1: Dataset Selection, Base EDA, and Hypothesis Formulation
+├── kaggleInstacart/                 # (Excluded) Raw data files (.csv)
+└── README.md                        # Project documentation
 ```
 
 ## How to Run
@@ -46,14 +42,15 @@ From our initial Exploratory Data Analysis (`project_initiation.ipynb`), we have
     ```
 2.  **Install dependencies**:
     ```bash
-    pip install pandas matplotlib seaborn numpy
+    pip install pandas matplotlib seaborn numpy mlxtend prefixspan nbformat jupyter
     ```
 3.  **Download Data**:
     *   Download the dataset from [Kaggle](https://www.kaggle.com/c/instacart-market-basket-analysis/data).
     *   Extract files into a `kaggleInstacart/` folder in the root directory.
-4.  **Run the Notebook**:
+4.  **Run the Notebooks**:
     ```bash
     jupyter notebook project_initiation_FINAL.ipynb
+    jupyter notebook project_checkpoint_2.ipynb
     ```
 
 ## Contact
