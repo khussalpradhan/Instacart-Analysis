@@ -21,10 +21,10 @@ Building upon our initial EDA, we have formulated three core research questions 
 
 1.  **RQ1 (Course - FP-Growth):** What frequent itemsets and association rules emerge under varying support thresholds, and how do confidence and lift compare when evaluating these rules?
     *   *Feasibility:* EDA proves a highly sparse long-tail distribution, requiring mathematical justification for extremely low support thresholds (e.g., 0.001 - 0.01).
-2.  **RQ2 (Course - Segmented FP-Growth):** How do frequent purchasing patterns differ between distinct user segments?
-    *   *Feasibility:* EDA segmentation reveals massive shopping volume variances between Weekend (Days 0, 1) and Midweek shoppers, allowing for comparative rule mining.
-3.  **RQ3 (External - PrefixSpan):** Do sequential purchase patterns (e.g., buying Product A, followed by Product B in a subsequent order) reveal item dependency structures missed by unordered itemsets?
-    *   *Feasibility:* EDA of user order histories proves the median sequence length is ~15 orders, which is computationally feasible for PrefixSpan without aggressive truncation.
+2.  **RQ2 (Course - Segmented FP-Growth):** How do frequent purchasing patterns differ between distinct user segments (e.g., early-week vs. late-week shoppers)?
+    *   *Feasibility:* EDA segmentation reveals massive shopping volume variances between early-week (Days 0, 1) and late-week shoppers, allowing for comparative rule mining.
+3.  **RQ3 (External - PrefixSpan):** Do sequential purchase patterns (e.g., buying Basket A, followed by Basket B in a subsequent order) reveal item dependency structures across orders missed by intra-basket unordered itemsets?
+    *   *Feasibility:* Restructuring order histories into alphabetical and hashable basket tuples proves mathematically sound PrefixSpan sequence tracking. While memory intensive, running PrefixSpan on our randomly sampled user subsets will be technically feasible without artificially truncating user histories.
 
 ## Repository Structure
 ```bash
