@@ -11,3 +11,4 @@ __pycache__/
 
 # Scripts
 generate_nb.py
+test_ps.py
