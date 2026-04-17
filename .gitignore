@@ -12,3 +12,7 @@ __pycache__/
 # Scripts
 generate_nb.py
 test_ps.py
+
+# Generator scripts (not needed in submission)
+generate_final_nb.py
+notebook_markdown.md
