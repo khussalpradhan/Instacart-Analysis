@@ -373,7 +373,7 @@
 <!-- ==================== SLIDE 3: THE KEY INSIGHT ==================== -->
 <div class="slide-container" id="slide3">
     <h2 class="slide-title">The <span class="text-gradient">7 & 14-Day</span> Rhythm</h2>
-    <p class="slide-subtitle">EDA on 200K+ users reveals strict, predictable shopping cycles</p>
+    <p class="slide-subtitle">EDA on 5,000 sampled users reveals strict, predictable shopping cycles</p>
     <div class="content-area" style="flex-direction: column; justify-content: center; gap: 24px;">
 
         <div class="area-chart-container">
@@ -451,8 +451,8 @@
                 <div class="rc-text"><strong>Sequential Patterns</strong> mined by PrefixSpan across basket trajectories</div>
             </div>
             <div class="result-card">
-                <div class="rc-number">133</div>
-                <div class="rc-text"><strong>Temporal-only pairs</strong> — bought in sequence but never in the same basket</div>
+                <div class="rc-number">3+</div>
+                <div class="rc-text"><strong>Multi-Step Trajectories</strong> — basket-to-basket-to-basket sequences only PrefixSpan can capture</div>
             </div>
             <div class="result-card">
                 <div class="rc-number">3</div>
@@ -465,8 +465,8 @@
             <ul style="gap: 16px;">
                 <li>
                     <i class="fa-solid fa-rocket"></i>
-                    <strong>The Takeaway:</strong> PrefixSpan found 133 item pairs FP-Growth is blind to — products that follow each other across orders but never appear together.
-                    <span class="detail">Example: Organic Raspberries → Organic Zucchini — never co-purchased, but consistently bought in sequence.</span>
+                    <strong>The Takeaway:</strong> PrefixSpan captures multi-step purchasing trajectories that co-occurrence analysis structurally cannot represent — the ordered sequence of <em>what comes after what</em>.
+                    <span class="detail">This trajectory structure enables next-basket prediction and demand forecasting beyond what static basket analysis can provide.</span>
                 </li>
                 <li>
                     <i class="fa-solid fa-bullseye"></i>
