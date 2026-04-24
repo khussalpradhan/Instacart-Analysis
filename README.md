@@ -62,8 +62,7 @@ This notebook runs on Python 3.10+ in a standard Colab environment. Key librarie
 │   └── test_ps.py                  
 ├── assets/                         # Pitch materials and generated assets
 │   ├── pitch_slides.html           
-│   ├── pitch_slides.pdf            
-│   └── video_script.md             
+│   └── pitch_slides.pdf            
 └── kaggleInstacart/                # (Ignored) Raw CSV data
 ```
 
