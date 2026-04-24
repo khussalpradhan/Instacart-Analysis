@@ -21,7 +21,7 @@ Online grocery platforms generate vast transactional datasets that encode rich b
 3. **RQ3 (PrefixSpan vs Static Rules):** Do sequential patterns reveal multi-step item trajectories across consecutive orders that static association rules structurally miss?
 
 ## 4. Project Video
-🎥 **[INSERT YOUTUBE LINK HERE]**
+🎥 **[Watch the 2-Minute Project Pitch on YouTube](https://www.youtube.com/watch?v=G2PMk_WyP-Q)**
 
 ## 5. Data Section
 - **Dataset Source:** [Instacart Market Basket Analysis (2017) via Kaggle](https://www.kaggle.com/c/instacart-market-basket-analysis/data)
