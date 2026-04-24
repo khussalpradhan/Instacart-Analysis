@@ -9,5 +9,5 @@ kaggleInstacart/
 .ipynb_checkpoints/
 __pycache__/
 
-# Video recordings (large binaries)
-assets/Pitch*.mp4
+# Pitch materials and video scripts
+assets/
