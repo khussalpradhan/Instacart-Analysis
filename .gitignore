@@ -9,17 +9,5 @@ kaggleInstacart/
 .ipynb_checkpoints/
 __pycache__/
 
-# Scripts
-generate_nb.py
-test_ps.py
-
-# Generator scripts (not needed in submission)
-generate_final_nb.py
-notebook_markdown.md
-
-# Video recordings
-Pitch.mp4
-PitchV1.mp4
-PitchV2.mp4
-PitchV3.mp4
-video_script.md
+# Video recordings (large binaries)
+assets/Pitch*.mp4

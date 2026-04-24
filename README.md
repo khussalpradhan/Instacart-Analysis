@@ -1,80 +1,73 @@
 # Instacart Market Basket Analysis: Sequential & Associative Pattern Mining
 
-> **A Data Mining Project combining FP-Growth and PrefixSpan to uncover the hidden temporal rhythm of grocery shopping across 3.4 Million orders.**
+> **A Data Mining Project combining FP-Growth and PrefixSpan to uncover the hidden temporal rhythm of grocery shopping.**
 
 **Author:** Khussal Pradhan · UID: 437005859  
 **Course:** CSCE 670 — Data Mining & Analysis · Texas A&M University · Spring 2026
 
+👉 **Start here:** `main_notebook.ipynb`
+
 ---
 
-## Project Overview
+## 1. Project Overview
+Online grocery platforms generate vast transactional datasets that encode rich behavioral signals. Standard recommendation engines usually look for items bought *together* in a single trip, essentially ignoring time. This project analyzes a reproducible sample of Instacart's massive dataset to compare traditional static co-occurrence (using **FP-Growth**) against longitudinal, temporal pattern mining (using **PrefixSpan**). The goal is to detect the hidden temporal rhythms of grocery shopping—predicting not just what else you might buy today, but what you will buy *next week*.
 
-This project analyzes the [Instacart Market Basket Analysis (2017)](https://www.kaggle.com/c/instacart-market-basket-analysis) dataset to uncover latent purchasing patterns using two complementary techniques:
+## 2. Main Deliverable
+👉 **The main deliverable is `main_notebook.ipynb`**
 
-- **FP-Growth** (Course Technique) — mines intra-basket association rules to find products frequently bought *together*
-- **PrefixSpan** (External Technique) — mines inter-basket sequential patterns to find products bought *in sequence* across orders over time
-
-### Key Results
-
-| Metric | Value |
-|--------|-------|
-| Association Rules (FP-Growth @ 0.5% support) | **344** |
-| Sequential Patterns (PrefixSpan) | **10,046** |
-| Temporal-only Item Pairs | **133** |
-| Research Questions Fully Answered | **3** |
-
-The project's key finding: **133 item pairs** are bought in *sequence* across orders but *never* in the same basket (e.g., Organic Raspberries → Organic Zucchini). FP-Growth is structurally blind to these temporal dependencies — only PrefixSpan can detect them.
-
-## Dataset
-- **Source**: [Instacart (Kaggle Official)](https://www.instacart.com/datasets/grocery-shopping-2017)
-- **Size**: ~3.4 Million orders, 200K+ Users, 50K+ Products
-- **Structure**: Relational tables (`orders`, `products`, `aisles`, `departments`)
-- **Key Characteristics**:
-    - **>99.9% Sparsity** in the user-product matrix
-    - **Strong weekly cycles** — reorder peaks at 7, 14, 21, and 30 days
-    - **Extreme long-tail** — most products appear in <1% of baskets
-
-## Research Questions
-
-1. **RQ1 (FP-Growth Threshold Sweep):** What frequent itemsets and association rules emerge under varying support thresholds (0.1% to 5%), and how do confidence and lift compare?
+## 3. Research Questions
+1. **RQ1 (FP-Growth Threshold Sweep):** What frequent itemsets and association rules emerge under varying support thresholds, and how do confidence and lift compare in an extremely sparse space?
 2. **RQ2 (Segmented Mining):** How do purchasing patterns differ between early-week (Days 0-1) and late-week (Days 5-6) shoppers?
-3. **RQ3 (PrefixSpan vs Static Rules):** Do sequential patterns reveal item dependencies across orders that static association rules miss?
+3. **RQ3 (PrefixSpan vs Static Rules):** Do sequential patterns reveal multi-step item trajectories across consecutive orders that static association rules structurally miss?
 
-## Repository Structure
+## 4. Project Video
+🎥 **[INSERT YOUTUBE LINK HERE]**
+
+## 5. Data Section
+- **Dataset Source:** [Instacart Market Basket Analysis (2017) via Kaggle](https://www.kaggle.com/c/instacart-market-basket-analysis/data)
+- **Scope:** The raw dataset contains 3.4 million orders across 200,000+ users. 
+- **Preprocessing:** Due to computational constraints for PrefixSpan, this project analyzes a deterministic, reproducible sample of 5,000 users. Relational tables were joined to extract longitudinal, chronological order histories per user, maintaining exact basket boundaries.
+
+## 6. How to Reproduce
+This project was built and executed in Google Colab.
+1. Clone this repository.
+2. Download the Kaggle dataset files and place them in a `kaggleInstacart/` folder at the root of the repository.
+3. Install the specific environment packages via `pip install -r requirements.txt`.
+4. Run the notebooks in the following order:
+   - `checkpoints/checkpoint_1.ipynb` (Initial EDA)
+   - `checkpoints/checkpoint_2.ipynb` (Feasibility)
+   - `main_notebook.ipynb` (Final curated execution and results)
+
+## 7. Key Dependencies
+This notebook runs on Python 3.10+ in a standard Colab environment. Key libraries used:
+- `pandas` (2.0.3)
+- `numpy` (1.25.2)
+- `mlxtend` (0.23.1) — For FP-Growth and Association Rules
+- `prefixspan` (0.5.2) — For Sequential Pattern Mining
+
+*See `requirements.txt` for the full environment export.*
+
+## 8. Repository Structure
 ```
-├── instacart_final_project.ipynb     # FINAL PROJECT — Full analysis & results
-├── project_checkpoint_2.ipynb        # Checkpoint 2: RQ formulation & feasibility
-├── project_initiation_FINAL.ipynb    # Checkpoint 1: Dataset selection & base EDA
-├── pitch_slides.html                 # 5-slide investor pitch deck
-├── kaggleInstacart/                  # (Excluded via .gitignore) Raw data files
-└── README.md                         # This file
+.
+├── main_notebook.ipynb             # FINAL CURATED PROJECT — Start Here!
+├── README.md                       # Project documentation
+├── requirements.txt                # Colab environment package versions
+├── checkpoints/                    # Progression of work over the semester
+│   ├── checkpoint_1.ipynb          # Dataset selection & base EDA
+│   └── checkpoint_2.ipynb          # RQ formulation & feasibility testing
+├── scripts/                        # Data processing / generator scripts
+│   ├── generate_nb.py              
+│   ├── generate_final_nb.py        
+│   └── test_ps.py                  
+├── assets/                         # Pitch materials and generated assets
+│   ├── pitch_slides.html           
+│   ├── pitch_slides.pdf            
+│   └── video_script.md             
+└── kaggleInstacart/                # (Ignored) Raw CSV data
 ```
 
-## How to Run
-1. **Clone the repository**:
-    ```bash
-    git clone https://github.com/khussalpradhan/Instacart-Analysis.git
-    cd Instacart-Analysis
-    ```
-2. **Install dependencies**:
-    ```bash
-    pip install pandas matplotlib seaborn numpy mlxtend prefixspan nbformat jupyter
-    ```
-3. **Download Data**:
-    - Download from [Kaggle](https://www.kaggle.com/c/instacart-market-basket-analysis/data)
-    - Extract files into a `kaggleInstacart/` folder in the root directory
-4. **Run the Final Notebook**:
-    ```bash
-    jupyter notebook instacart_final_project.ipynb
-    ```
+## 9. Results Summary
+Our analysis uncovered that grocery data exhibits extreme matrix sparsity (>99.98%), requiring support thresholds as low as 0.5% for meaningful associations to emerge. At this threshold, FP-Growth discovered **344 significant static association rules**, largely dominated by organic produce clusters. 
 
-## Deliverables
-| Deliverable | Description |
-|-------------|-------------|
-| `instacart_final_project.ipynb` | Complete analysis notebook (15 code cells, 16 markdown, 9 plots) |
-| `pitch_slides.html` | 5-slide pitch deck — open in browser for fullscreen presentation |
-| Video (YouTube) | 2-minute investor pitch |
-
-## Contact
-- **Author**: Khussal Pradhan (UID: 437005859)
-- **Course**: Data Mining & Analysis (CSCE 670) at Texas A&M University
+However, standard co-occurrence analysis is structurally blind to time. By structuring the data chronologically, PrefixSpan was able to capture over **8,000 multi-step purchasing trajectories** spanning three or more consecutive shopping trips. This temporal ordering—the sequence of *what comes after what*—enables advanced next-basket prediction that static association rules alone cannot provide.
