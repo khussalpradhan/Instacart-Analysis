@@ -12,7 +12,8 @@ cells.append(nbf.v4.new_markdown_cell("""# Instacart Market Basket Analysis: Seq
 **Author:** Khussal Pradhan  
 **Course:** CSCE 670 — Data Mining & Analysis, Texas A&M University  
 
-**Abstract:** This project analyzes a **reproducible 5,000-user sample** drawn from the 3.4 million grocery orders in the Instacart Market Basket Analysis dataset. We employ two complementary data mining approaches: **FP-Growth** (a course technique) for intra-basket association rule mining, and **PrefixSpan** (an external technique) for inter-basket sequential pattern mining. Our analysis reveals that (1) meaningful association rules only emerge at extremely low support thresholds due to the measured >99.9% data sparsity, (2) early-week and late-week shoppers exhibit distinct purchasing patterns, and (3) sequential mining captures temporal multi-step trajectories that static association rules fundamentally miss."""))
+## Abstract
+**Abstract:** This project analyzes a **reproducible 5,000-user sample** drawn from the 3.4 million grocery orders in the Instacart Market Basket Analysis dataset. We employ two complementary data mining approaches: **FP-Growth** (a course technique) for intra-basket association rule mining on the full 5,000-user sample, and **PrefixSpan** (an external technique) for inter-basket sequential pattern mining on a computationally constrained subset (first 2,000 sampled users and top 20 products, yielding 1,671 users after filtering). Our analysis reveals that (1) meaningful association rules only emerge at extremely low support thresholds due to the measured >99.9% data sparsity, (2) early-week and late-week shoppers exhibit distinct purchasing patterns, and (3) sequential mining captures temporal multi-step trajectories that static association rules fundamentally miss."""))
 
 # Collaboration Declaration
 cells.append(nbf.v4.new_markdown_cell("""## Collaboration Declaration
@@ -181,7 +182,7 @@ display(pd.DataFrame(stats_data).style.hide(axis='index').set_caption('Dataset S
 cells.append(nbf.v4.new_markdown_cell("""**Observation:** The statistics confirm two critical properties of this dataset that will drive our methodological decisions:
 
 1. **Extreme Sparsity (>99.9%)** — most products never appear in most baskets. This mathematically guarantees that traditional support thresholds (e.g., 5-10%) will fail to find anything except "Banana & Organic Banana". We will need extremely low support levels for FP-Growth.
-2. **Rich longitudinal depth** — users average ~10 prior orders each, providing enough temporal history for meaningful sequential mining with PrefixSpan.
+2. **Rich longitudinal depth** — users average 15.6 prior orders, with a median of 9, providing enough temporal depth for sequential mining.
 2. **Moderate basket sizes** — average baskets contain ~10 items, which is tractable for one-hot encoding without excessive dimensionality.
 
 These characteristics make this dataset uniquely suited for our dual FP-Growth + PrefixSpan approach."""))
@@ -668,7 +669,7 @@ cells.append(nbf.v4.new_code_cell("""from prefixspan import PrefixSpan
 # PREPARE DATA FOR PREFIXSPAN
 # We use a deterministic subset (the first 2,000 users) of our already-random 5,000-user sample, 
 # and the top 20 products. This creates a filtered cohort to ensure the sequential mining algorithm 
-# completes in a reasonable time.
+# completes in a reasonable time, yielding 1,671 valid users after filtering.
 
 ps_users = orders_df['user_id'].unique()[:2000]
 ps_orders = orders_df[orders_df['user_id'].isin(ps_users)]
@@ -769,7 +770,7 @@ for length, count in sorted(Counter(lengths).items()):
 
 cells.append(nbf.v4.new_markdown_cell("""**Observation — PrefixSpan Results:**
 
-PrefixSpan discovered thousands of sequential patterns. The length distribution shows that most patterns involve 1-2 baskets (single-item reorder habits), but meaningfully long patterns (length 3+) also exist — these represent multi-step purchasing trajectories that unfold over weeks.
+PrefixSpan captured thousands of repeated temporal purchase patterns, including recurring staple-purchase sequences across multiple orders. These patterns show that sequential order history adds information beyond static basket co-occurrence.
 
 The critical question is: **does PrefixSpan capture different information than basket-level co-occurrence?** The next analysis directly tests this."""))
 
@@ -890,7 +891,7 @@ In this project, we analyzed the Instacart Market Basket Analysis dataset to inv
 
 **RQ2** proved that temporal context matters. Early-week shoppers (days 0-1, the highest-volume segment) and late-week shoppers exhibit measurably different purchasing patterns: some association rules appear exclusively in one segment, and shared rules carry different lift values depending on the day. This means a single global recommendation model is leaving signal on the table — segmented mining produces more targeted insights.
 
-**RQ3** delivered the project's key methodological insight. By structuring user histories as chronological sequences of canonicalized basket tuples, PrefixSpan discovered over 10,000 sequential patterns — including multi-step trajectories spanning 3+ basket-to-basket transitions. An honest apples-to-apples comparison revealed that at the item-pair level, most sequential pairs also co-occur in baskets. However, PrefixSpan's true value lies not in finding "new" pairs but in capturing the **multi-step temporal trajectory structure** of purchasing behavior — the ordered sequence of *what comes after what* — which static co-occurrence analysis structurally cannot represent. This trajectory information is precisely what enables next-basket prediction and demand forecasting."""))
+**RQ3** delivered the project's key methodological insight. By structuring user histories as chronological sequences of canonicalized basket tuples, PrefixSpan captured thousands of repeated temporal purchase patterns, including recurring staple-purchase sequences across multiple orders. An honest apples-to-apples comparison revealed that at the item-pair level, most sequential pairs also co-occur in baskets. However, PrefixSpan's true value lies not in finding "new" pairs but in capturing the **multi-step temporal trajectory structure** of purchasing behavior — the ordered sequence of *what comes after what* — which static co-occurrence analysis structurally cannot represent. This trajectory information is precisely what enables next-basket prediction and demand forecasting."""))
 
 cells.append(nbf.v4.new_markdown_cell("""### Limitations
 
@@ -918,7 +919,7 @@ cells.append(nbf.v4.new_markdown_cell("""---
 # ============================================================
 
 nb['cells'] = cells
-output_path = '/Users/pradh/Documents/Khussal/TAMU/2nd Semester/Data Mining & Analysis/Project/Checkpoint 1/instacart_final_project.ipynb'
+output_path = '/Users/pradh/Documents/Khussal/TAMU/2nd Semester/Data Mining & Analysis/Project/Checkpoint 1/main_notebook.ipynb'
 nbf.write(nb, output_path)
 print(f"Final project notebook generated: {output_path}")
 print(f"Total cells: {len(cells)} ({sum(1 for c in cells if c.cell_type == 'code')} code, {sum(1 for c in cells if c.cell_type == 'markdown')} markdown)")

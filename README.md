@@ -26,7 +26,7 @@ Online grocery platforms generate vast transactional datasets that encode rich b
 ## 5. Data Section
 - **Dataset Source:** [Instacart Market Basket Analysis (2017) via Kaggle](https://www.kaggle.com/c/instacart-market-basket-analysis/data)
 - **Scope:** The raw dataset contains 3.4 million orders across 200,000+ users. 
-- **Preprocessing:** Due to computational constraints for PrefixSpan, this project analyzes a deterministic, reproducible sample of 5,000 users. Relational tables were joined to extract longitudinal, chronological order histories per user, maintaining exact basket boundaries.
+- **Preprocessing:** Due to computational constraints, this project initially analyzes a deterministic, reproducible sample of 5,000 users. FP-Growth was run on the entire 5,000-user sample. PrefixSpan was run on a computationally constrained filtered subset: the first 2,000 sampled users and top 20 products, yielding 1,671 users after filtering. Relational tables were joined to extract longitudinal, chronological order histories per user, maintaining exact basket boundaries.
 
 ## 6. How to Reproduce
 This project was built and executed in Google Colab.
@@ -69,4 +69,4 @@ This notebook runs on Python 3.10+ in a standard Colab environment. Key librarie
 ## 9. Results Summary
 Our analysis uncovered that grocery data exhibits extreme matrix sparsity (>99.98%), requiring support thresholds as low as 0.5% for meaningful associations to emerge. At this threshold, FP-Growth discovered **344 significant static association rules**, largely dominated by organic produce clusters. 
 
-However, standard co-occurrence analysis is structurally blind to time. By structuring the data chronologically, PrefixSpan was able to capture over **8,000 multi-step purchasing trajectories** spanning three or more consecutive shopping trips. This temporal ordering—the sequence of *what comes after what*—enables advanced next-basket prediction that static association rules alone cannot provide.
+However, standard co-occurrence analysis is structurally blind to time. By structuring the data chronologically, PrefixSpan captured thousands of repeated temporal purchase patterns, including recurring staple-purchase sequences across multiple orders. These patterns show that sequential order history adds information beyond static basket co-occurrence.
